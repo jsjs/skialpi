@@ -1,0 +1,9 @@
+pre generovanie schemy:
+nastavit pristupove data v config/databse.yml
+potom:
+  $ bundle exec rake db:migrate --- zmigruje databazu
+  $ bundle exec rake db:populate --- zaludni databazu
+  $ bundle exec rake db:fill_tracks --- databazu naplni zjazdami, lokalitami a oblastami
+  
+Vsetko mozno ucinit cez tieto prikazy, preto dump databazy nie je prilozeny, nakolko nie je potrebny
+  

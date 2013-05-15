@@ -1,0 +1,55 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+      
+      <br />
+      <b>Body spolu:</b> <%= @user.achievements.sum(:points) %> <br />
+      <b>Body sezóna:</b> <%= @user.achievements.where("date_part('year', date) = date_part('year', current_date)").sum(:points) %>
+      
+      <div class="user-info">
+      <b>Pohlavie:</b> <%= "muž" if @user.sex.eql?("m") %><%= "žena" if @user.sex.eql?("f") %><br />
+      
+      <% if @user.show_age %>
+        <b>Vek:</b> <%= @user.age %> <br />
+      <% end %>
+      
+      <b>Registrovaný:</b> <%= @user.created_at.to_date %> <br />
+      
+      <% if @user.show_email %>
+        <b>Email:</b> <%= @user.email %><br />
+      <% end %>
+
+      <% unless @user.about.nil? || @user.about.empty? %>
+        <b>O mne:</b> <%= @user.about %><br />
+      <% end %>
+      
+      <% if current_user?(@user) %>
+        <br /><br />
+        <%= link_to "Pridať zjazd do denníčka", "/achievements/new", class: "btn btn-large" %>
+      <% end %>
+      
+      <% if !current_user.nil? && current_user.admin? && !current_user?(@user) %>
+        <%= link_to "[zmazať]", @user, method: :delete,
+                                  data: { confirm: "Ste si istí?" } %>
+      <% end %>
+      </div>
+    </section>
+  </aside>
+  
+  <div class="span8">
+    <ul class="nav nav-tabs">
+      <li class="<%= @stats_class %>"><%= link_to "Štatistiky", stats_user_path(params[:id]) %></li>
+      <li class="<%= @all_class %>"><%= link_to "Všetko", achievements_user_path(params[:id]) %></li>
+      <li class="<%= @season_class %>"><%= link_to "Sezóna", season_user_path(params[:id]) %></li> 
+      <li class="<%= @top10_class %>"><%= link_to "Top10", top10_user_path(params[:id]) %></li>
+    </ul>
+    
+    <h3 class="center"><%= @subtitle %></h3>
+    
+    
+

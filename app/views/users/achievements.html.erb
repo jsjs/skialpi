@@ -1,0 +1,33 @@
+<%= render 'user_header' %>
+
+<% if @achievements.empty? %>
+  <div class="alert alert-warning center" style="margin-top: 50px">V tejto sekcii nie je evidovaný žiadny zjazd</div>
+<% else %>
+
+<strong> Body spolu: </strong> <%= @sum %>
+<%= will_paginate(@achievements) %>
+
+<table class="table table-striped">
+  
+  <th> Zjazd </th> <th> Náročnosť </th> <th>Body</th> <th> Dátum </th> <th> Čas </th> <th> Komentár </th>
+  <% if !current_user.nil? && current_user.admin? %>
+    <th></th>
+  <% end %>
+  
+  <% @achievements.each do |achievement| %>
+    <tr>
+      <td> <%= link_to achievement.track.name, achievement.track %> </td>
+      <td> <%= achievement.track.difficulty %> | <%= achievement.track.exposure %></td>
+      <td> <%= achievement.points %> </td>
+      <td> <%= achievement.date %> </td>
+      <td> <%= achievement.time %> </td>
+      <td> <%= achievement.note %> </td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate(@achievements) %>
+<% end %>
+
+<%= render 'user_footer' %>

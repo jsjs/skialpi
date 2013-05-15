@@ -1,0 +1,45 @@
+<% provide(:title, "Lokality") %>
+
+<h1> Lokality </h1>
+
+<%= will_paginate %>
+
+<% if signed_in? %>
+  Ak chcete <em> pridať nový zjazd </em>, vyberte si lokalitu, potom oblasť a pridajte nový zjazd. Ak sa lokalita nenachádza v zozname, <%= link_to "vytvorte ju tu", "/locations/new" %>
+  <br /><br />
+<% end %>
+
+<% if @locations.length == 0 %>
+   <div class="alert alert-warning center" style="margin-top: 50px">V systéme nie sú evidované žiadne lokality.</div>
+   <br/><br/>
+<% else %>
+
+<table class="table table-striped">
+  
+  <% @locations.each do |location| %>
+    <tr>
+      <td> <%= link_to location.name, location %> </td>
+      <% if signed_in? %>
+      <td> <%= link_to '[upraviť]', edit_location_path(location) %> </td>
+      <td> <%= link_to '[pridať oblasť]', "/locations/#{location.id}/area/new" %> </td>
+      <% if current_user.admin? %>
+      <td> <%= link_to "[odstrániť]", location, method: :delete,
+                                    data: { confirm: "Ste si istí?" } %>
+      </td>
+      <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate %>
+<% end %>
+
+<% if signed_in? %>
+  <p class="center"><%= link_to "Vytvoriť novú lokalitu", "/locations/new", class: "btn btn-primary" %></p>
+<% end %>
+
+
+
+

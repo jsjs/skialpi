@@ -1,0 +1,89 @@
+<% provide(:title, 'Pridaj zjazd do denníčka') %>
+
+<h1>Pridanie zjazdu do denníčka</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+ 
+  <%= form_for(@achievement) do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+  
+
+<%= collection_select(nil, :location_id, @locations, :id, :name, {:prompt => "Vyberte si lokalitu"}, {:id => 'locations_select'}) %>
+<br/>
+
+<% if @areas.nil? %>
+  <select id="areas_select" name="[area_id]"><option value="">---</option></select>
+  <br/>
+<% else %>
+  <%= collection_select(nil, :area_id, @areas, :id, :name, {:prompt => "Select an 2Area"}, {:id => 'areas_select'}) %>
+  <br/>
+<% end %>
+
+<% if @areas.nil? %>
+  <select id="tracks_select" name="[track_id]"><option value="">---</option></select>
+  <br/>
+<% else %>
+  <%= collection_select(nil, :track_id, @tracks, :id, :name, {:prompt => "Select a 2Track"}, {:id => 'tracks_select'}) %>
+  <br/>
+<% end %>
+
+<br /> <br />
+
+      <%= f.label :date, "Dátum zjazdu *" %>                
+      <div id="datetimepicker" class="input-append">
+        <input class="span3" id="date-input" name="achievement[date]" data-format="yyyy-MM-dd" type="text" width="10"></input>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+        </span>
+        <span class="add-on">
+          <em>napr. 2013-01-01</em>
+        </span>
+      </div>
+      
+      <%= f.label :time, "Čas" %>
+      <%= f.text_field :time %>
+      
+      <%= f.label :note, "Poznámka" %>
+      <%= f.text_area :note, placeholder: "Poznámka k zjazdu...", size: "x3" %>
+      
+      <%= f.submit "Pridaj", class: "btn btn-large btn-primary" %>
+      
+      
+      <script type="text/javascript">      
+      $(function() {
+        $('#datetimepicker').datetimepicker({
+          pickTime: false,
+        });
+        var picker = $('#datetimepicker').data('datetimepicker');
+        picker.setLocalDate(new Date()); 
+      });
+      </script>
+ 
+<script>
+  $(document).ready(function() {
+    $('#locations_select').change(function() {
+      $.ajax({
+        url: "<%= update_areas_path %>",
+        data: {
+        location_id : $('#locations_select').val()
+      },
+      dataType: "script"
+    });
+  });
+  
+  $('#areas_select').change(function() {
+    $.ajax({
+      url: "<%= update_tracks_path %>",
+      data: {
+      area_id : $('#areas_select').val()
+      },
+      dataType: "script"
+    });
+  });
+  });
+</script>
+    <% end %>
+  </div>
+</div>

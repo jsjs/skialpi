@@ -1,0 +1,21 @@
+# PostgreSQL database
+#
+# configuration file
+#
+
+common: &common
+  adapter: postgresql
+  username: postgres
+  password:
+
+development:
+  <<: *common
+  database: skialpi-prod
+
+test:
+  <<: *common
+  database: 
+
+production:
+  <<: *common
+  database: skialpi-prod

@@ -1,0 +1,37 @@
+<% provide(:title, @track.name) %>
+
+<h1><%= @track.name %></h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+    <table class="table table-striped">    
+    
+    <% if @track.area.nil? %>
+      <tr><td><strong>Lokalita:</strong></td> <td> N/A </td></tr>
+      <tr><td><strong>Oblasť:</strong></td> <td> N/A </td></tr>
+    <% else %>
+      <tr><td><strong>Lokalita:</strong></td> <td><%= @track.area.location.name %> </td></tr>
+      <tr><td><strong>Oblasť:</strong></td> <td><%= @track.area.name %> </td></tr>
+    <% end %>
+    
+    <tr><td><strong>Výška:</strong></td> <td><%= @track.altitude %> (m) </td></tr>
+    <tr><td><strong>Sklon:</strong></td> <td><%= @track.slope %> (°) </td></tr>
+    <tr><td><strong>Obtiažnosť:</strong></td> <td><%= @track.difficulty %> </td></tr>
+    <tr><td><strong>Expozícia:</strong></td> <td><%= @track.exposure %> </td></tr>
+    <tr><td><strong>Pridané:</strong></td> <td><%= @track.created_at.to_date %> </td></tr>
+    
+    
+    <% unless @track.description.empty? %>
+      <tr><td><strong>Popis:</strong></td> <td><%= @track.description %> </td></tr>
+    <% end %>
+    
+    </table>
+    
+    <% if signed_in? and current_user.admin? %>
+      <p class="center"><%= link_to "Odstrániť", @track, method: :delete,
+                                    data: { confirm: "Odstránením zjazdu budú zmazané bodové ohodnotenia používateľov, ktorí majú zjazd evidovanú v denníčku. Chcete pokračovať?" } , class: "btn btn-warning" %></p>
+    <% end %>
+
+  </div>
+</div>

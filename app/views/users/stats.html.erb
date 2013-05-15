@@ -1,0 +1,18 @@
+<%= render 'user_header' %>
+
+<strong>Body spolu: </strong> <%= @all_points %> <br />
+<strong>Body v sezóne <%= Date.current.year %>:</strong> <%= @season_points %> <br />
+<strong>Body v TOP10: </strong> <%= @top10_points %> <br /><br />
+
+<strong>Počet evidovaných zjazdov:</strong> <%= @tracks_count %><br />
+<strong>Počet zjazdov evidovaných v sezóne <%= Date.current.year %>:</strong> <%= @seasons_tracks_count %><br /><br />
+
+<% unless @last_achv.nil? %>
+  <strong>Naposledy pridaný zjazd: </strong><%= link_to @last_achv.track.name, @last_achv.track %> (<%=     @last_achv.created_at.to_date %>) <%= @last_achv.points %>b <br />
+<% end %>
+
+<% unless @first_achv.nil? %>
+  <strong>Môj prvý pridaný zjazd: </strong><%= link_to @first_achv.track.name, @first_achv.track %> (<%= @first_achv.created_at.to_date %>) <%= @first_achv.points %>b
+<% end %>
+
+<%= render 'user_footer' %>

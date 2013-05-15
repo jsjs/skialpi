@@ -1,0 +1,85 @@
+<% provide(:title, 'Registrácia') %>
+
+<h1>Registrácia</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@user) do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name, "Meno *" %>
+      <%= f.text_field :name %>
+      
+      <%= f.label :sex, "Pohlavie *", class: "linline" %>
+        <label for="user_sex_m" class="radio inline">
+          <%= f.radio_button :sex, "m" %>
+          som muž
+        </label>
+        <label for="user_sex_f" class="radio inline">
+          <%= f.radio_button :sex, "f" %>
+          som žena
+        </label>
+        
+      <br /><br />
+
+      <%= f.label :email, "E-mail *" %>
+      <%= f.text_field :email %>
+      
+      <label class="checkbox">
+        <%= f.check_box :show_email, checked: true %>
+        zobrazovať e-mail ostatným používateľom
+      </label>
+      
+      <br />
+      
+      <%= f.label :birthdate, "Dátum narodenia *" %>                
+      <div id="datetimepicker" class="input-append">
+        <input class="span3" id="date-input" name="user[birthdate]" data-format="yyyy-MM-dd" type="text" width="10"></input>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+        </span>
+        <span class="add-on">
+          <em>napr. 1980-04-23</em>
+        </span>
+      </div>
+      
+      <label class="checkbox">
+        <%= f.check_box :show_age, checked: true %>
+        zobrazovať môj vek ostatným používateľom
+      </label>
+
+      <script type="text/javascript">      
+      $(function() {
+        $('#datetimepicker').datetimepicker({
+          pickTime: false,
+        });
+        var picker = $('#datetimepicker').data('datetimepicker');
+        picker.setLocalDate(new Date('1990-01-01')); 
+      });
+      </script>
+
+      <br /><br />      
+      
+      <%= f.label :password, "Heslo *" %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Potvrdenie hesla *" %>
+      <%= f.password_field :password_confirmation %>
+      
+      <br /><br />
+
+      <%= f.label :about, "O mne" %>
+      <%= f.text_area :about, placeholder: "Niečo o mne...", size: "x6" %>
+      
+        
+      Údaje označené hviezdičkou (*) sú povinné  <br /> <br />
+      
+        
+      <%= f.submit "Registruj", class: "btn btn-large btn-primary" %>
+      
+    <% end %>
+ 
+  </div>
+</div>
+

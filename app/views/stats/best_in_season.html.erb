@@ -1,0 +1,30 @@
+<% year = Date.current.year %>
+<% provide(:title, "Najlepší používatelia v #{year}") %>
+
+<h1> Najlepší používatelia v sezóne <%= year %> </h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+  <% if @achievements.length == 0 %>
+    <div class="alert alert-warning center" style="margin-top: 50px">V systéme nie je evidovaný zjazd pre žiadneho používateľa v aktuálnej sezóne.</div>
+  <% else %>
+
+	  <%= will_paginate(@achievements) %>
+
+	  <table class="table table-striped">
+  		<% @achievements.each_with_index do |achv, i| %>
+    	<tr>
+    		<td> <%= (i + 1) %>. </td>
+      		<td> <%= link_to achv.user.name, achv.user %> </td>
+      		<td> <%= achv.user.sex_sk %> </td>
+      		<td> <strong><%= achv["sum_points"] %></strong> </td>
+    	</tr>
+  		<% end %>
+	  </table>
+
+	  <%= will_paginate(@achievements) %>
+  <% end %>
+
+  </div>
+</div>

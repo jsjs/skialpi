@@ -1,0 +1,35 @@
+<% provide(:title, 'Editácia lokality') %>
+
+<h1>Editácia lokality</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@location) do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name, "Názov *" %>
+      <%= f.text_field :name %>
+      
+
+      <%= f.label :description, "Popis" %>
+      <%= f.text_area :description, placeholder: "Tu zadajte popis lokality ...", size: "x3" %>
+      
+      <%= f.label :conditions, "Podmienky" %>
+      <%= f.text_area :conditions, placeholder: "Tu zhrňte podmienky v danej lokalite ...", size: "x3" %>
+      
+      <%= f.label :access, "Prístup" %>
+      <%= f.text_area :access, placeholder: "Popíšte prístup do danej lokality ...", size: "x3" %>
+      
+        
+      Údaje označené hviezdičkou (*) sú povinné  <br /> <br />
+        
+      <%= f.submit "Zmeň", class: "btn btn-large btn-primary" %>
+      
+      
+    <% end %>
+    
+
+  </div>
+</div>
+

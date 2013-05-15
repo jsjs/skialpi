@@ -1,0 +1,54 @@
+# encoding: utf-8
+
+<% provide(:title, "Zjazdy") %>
+
+<h1> Zjazdy </h1>
+
+<% if @tracks.length == 0 %>
+   <div class="alert alert-warning center" style="margin-top: 50px">V systéme nie sú evidované zjazdy.</div>
+   <% if signed_in? %>
+      <p class="center">
+        Ak chcete pridať do systému zjazd, prejdite na <%= link_to "lokality", locations_path %>
+      </p>
+   <% end %>
+<% else %>
+
+<% if signed_in? %>
+  Ak chcete <em> pridať nový zjazd </em>, prejdite na <%= link_to "lokality", "/locations" %>, vyberte si lokalitu, oblasť a pridajte zjazd.
+<% else %>
+  <%= link_to "Prejsť na lokality", "/locations" %>.
+<% end %>
+
+<br /><br />
+
+<%= will_paginate %>
+
+<table class="table table-striped">
+ 
+    <% @tracks.each do |track| %>
+    <tr>
+      <td> <%= link_to track.name, track %> </td>
+      <% if track.area.nil? %>
+        <td> Nezaradený zjazd </td>
+      <% else %>
+        <td> <%= track.area.location.name %> - <%= track.area.name %></td>
+      <% end %>
+      <td> <%= track.altitude %> m</td>
+      <td> <%= track.difficulty %> </td>
+      <td> <%= track.exposure %> </td>
+      <% if signed_in? && current_user.admin? %>
+        <td> <%= link_to "[zmeň oblasť]", "/tracks/#{track.id}/change_area" %>
+      <% end %>
+    </tr>
+    <% end %>
+
+</table>
+
+<%= will_paginate %>
+
+<strong>Počet evidovaných zjazdov:</strong> <%= @tracks.count %>
+
+<% end %>
+
+
+

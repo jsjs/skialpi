@@ -1,0 +1,20 @@
+<% provide(:title, 'Oznámenie chyby') %>
+
+<h1>Oznámenie chyby</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@bug) do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.text_area :description, placeholder: "Tu napíšte popis chyby a okolnosti za ktorých vznikla ...", size: "x6" %>
+
+      <%= f.submit "Oznám", class: "btn btn-large btn-primary" %>
+          
+    <% end %>
+    
+
+  </div>
+</div>
+

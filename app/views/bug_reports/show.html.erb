@@ -1,0 +1,18 @@
+<% provide(:title, "Chyby") %>
+
+<h1>Chyby</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+    <strong> Ohlásil: </strong> <%= link_to @bug.user.name, @bug.user %> (ohlásené chyby: <%= @bug.user.bug_reports.count %>) <br />
+    <strong> Dátum ohlásenia: </strong> <%= @bug.created_at.to_date %> <br />
+    <strong> Popis: </strong> <%= @bug.description %> <br />
+    
+    <br />
+    <td> <%= link_to "[zmazať]", @bug, method: :delete,
+                                  data: { confirm: "Ste si istí?" } %> </td>
+  </div>
+</div>
+
+

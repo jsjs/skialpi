@@ -1,0 +1,18 @@
+<footer class="footer">
+  <small>
+    Skialpi (c) Juraj Šimek 2013
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "O mne",   about_path %></li>
+      <li><%= link_to "Pomocník", help_path %></li>
+      <li><%= link_to "Kontakt", contact_path %></li>
+      <% if signed_in? %>
+         <li><%= link_to "Ohlásiť chybu", "/bug_reports/new" %></li>
+         <% if current_user.admin? %>
+            <li><%= link_to "Zoznam chýb", "/bug_reports" %></li>
+         <% end %>
+      <% end %>
+    </ul>
+  </nav>
+</footer>

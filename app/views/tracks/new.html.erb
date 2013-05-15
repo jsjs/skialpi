@@ -1,0 +1,46 @@
+<% provide(:title, 'Pridanie zjazdu') %>
+
+<h1>Pridanie zjazdu</h1>
+<h4 class="center"><%= Area.find(params[:id]).name %></h4>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @track, :url => { :action => "create" } do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name, "Názov zjazdu *" %>
+      <%= f.text_field :name %>
+
+      <%= f.label :altitude, "Prevýšenie (v metroch) *" %>
+      <%= f.text_field :altitude %>
+      
+      <%= f.label :slope, "Sklon (v stupňoch) *" %>
+      <%= f.text_field :slope %>
+      
+      <% dif_level = difficulty_level %>
+      <%= f.label :difficulty, "Obtiažnosť *" %>
+      <%= f.select :difficulty, dif_level.map{ |k, v| [k, k] } %>
+      
+      <% exp_level = exposure_level %>
+      <%= f.label :exposure, "Expozícia *" %>
+      <%= f.select :exposure, exp_level.map{ |k, v| [k, k] } %>
+      
+      <br /><br />
+
+      <%= f.label :description, "Popis" %>
+      <%= f.text_area :description, placeholder: "Tu zadajte popis zjazdu ...", size: "x3" %>
+      
+      <%= f.label :note, "Poznámka" %>
+      <%= f.text_area :note, placeholder: "Ak by ste chceli ku zjazdu niečo poznamenať, môžte tak spraviť tu ...", size: "x3" %>
+      
+        
+      Údaje označené hviezdičkou (*) sú povinné  <br /> <br />
+        
+      <%= f.submit "Pridaj zjazd", class: "btn btn-large btn-primary" %>
+     
+    <% end %>  
+
+  </div>
+</div>
+

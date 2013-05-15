@@ -1,0 +1,55 @@
+<h1> Vitajte v systéme Skialpi</h1>
+
+<p class="center">
+	<strong> Systém skialpi je určený na evidovanie skialpinistických zjazdov, ktoré používatelia systému prekonali. Systém na základe náročnosti zjazdu ohodnotí používateľov úspech bodmi. Každému registrovanému používateľovi je navyše umožnené do systému pridávať nové zjazdy. </strong>
+</p>
+
+<p class="center">
+
+	<% unless signed_in? %>
+		<%= link_to "Zaregistrujte sa teraz!", "/registration", 
+                                class: "btn btn-large btn-primary" %>
+	<% end %>
+
+</p>
+
+<% if @achievements.length > 0 %>
+
+  <div class="row">
+    <div class="span6 offset3">
+
+    <h4 class="center">Najlepší používatelia</h4>
+    <table class="table table-striped">
+      <% @achievements.each_with_index do |achv, i| %>
+        <tr>
+          <td> <%= (i + 1) %>. </td>
+          <td> <%= link_to achv.user.name, achv.user %> </td>
+          <td> <%= achv.user.sex_sk %> </td>
+          <td> <strong><%= achv["sum_points"] %></strong> </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div style="height: 50px, width: 100%"></div>
+
+<% end %>
+
+<% if @season.length > 0 %>
+    <h4 class="center">Najlepší používatelia v sezóne <%= Date.current.year %></h4>
+    <table class="table table-striped">
+      <% @season.each_with_index do |seas, i| %>
+        <tr>
+          <td> <%= (i + 1) %>. </td>
+          <td> <%= link_to seas.user.name, seas.user %> </td>
+          <td> <%= seas.user.sex_sk %> </td>
+          <td> <strong><%= seas["sum_points"] %></strong> </td>
+        </tr>
+      <% end %>
+    </table>
+
+    </div>
+  </div>
+
+<% end %>
+
+

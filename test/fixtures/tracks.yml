@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  slope: MyString
+  difficulty: MyString
+  altitude: 1
+  note: MyText
+
+two:
+  name: MyString
+  description: MyText
+  slope: MyString
+  difficulty: MyString
+  altitude: 1
+  note: MyText

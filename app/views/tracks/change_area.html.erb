@@ -1,0 +1,22 @@
+<% provide(:title, "Zmena oblasti - #{@track.name}") %>
+
+<h1>Zmena oblasti - <%= @track.name %></h1>
+
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @track, :url => { :action => "change_area_proc" }, :html => { :method => "put" } do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+
+
+      <%= select_tag("area_id", options_for_select(@locations)) %>
+      
+        
+      <%= f.submit "Zmeň oblasť", class: "btn btn-large btn-primary" %>
+      
+    <% end %>
+    
+  </div>
+</div>
+

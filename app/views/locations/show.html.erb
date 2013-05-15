@@ -1,0 +1,85 @@
+<% provide(:title, @location.name) %>
+
+<h1><%= @location.name %></h1>
+
+<div class="row">
+  <div class="span6 offset3">
+
+    <% unless @location.description.empty? %>
+    <p>
+      <h4>Popis</h4>
+      <%= @location.description %>
+      <% if signed_in? %>
+        <%= link_to '[upraviť]', edit_location_path(@location) %>
+      <% end %>
+    </p>
+    <% end %>
+    
+    <% unless @location.access.empty? %>
+    <p>
+      <h4>Prístup</h4>
+      <%= @location.access %>
+      <% if signed_in? %>
+        <%= link_to '[upraviť]', edit_location_path(@location) %>
+      <% end %>
+    </p>
+    <% end %>
+    
+    <% unless @location.conditions.empty? %>
+    <p>
+      <h4>Podmienky</h4>
+      <%= @location.conditions %>
+      <% if signed_in? %>
+        <%= link_to '[upraviť]', edit_location_path(@location) %>
+      <% end %>
+    </p>
+    <% end %>
+    
+    
+    <h4>Oblasti</h4> 
+    
+    <% if signed_in? %>
+      Ak chcete <em> pridať zjazd </em>, vyberte si oblasť, do ktorej patrí, alebo túto oblasť <%= link_to "vytvorte", "/locations/#{@location.id}/area/new" %> v zobrazovanej lokalite.
+      <br /><br />
+    <% end %> 
+    
+
+    <% if @areas.length == 0 %>
+      <div class="alert alert-warning center" style="margin-top: 50px">
+        Pre túto lokalitu nie sú evidované žiadne oblasti.
+      </div>
+      <br /><br />
+    <% else %>  
+
+    <table class="table table-striped">
+ 
+    <% @areas.each do |area| %>
+    <tr>
+      <td> <%= link_to area.name, area %> </td>
+      <% if signed_in? %>
+      <td> <%= link_to "[upraviť]", edit_area_path(area) %>
+      <% if current_user.admin? %>
+      <td>
+        <%= link_to "[zmazať]", area, method: :delete,
+                                  data: { confirm: "Ste si istí?" } %>
+      </td>
+      <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+
+    </table>
+    <%= will_paginate(@areas) %>
+
+    <% end %>
+    
+    <% if signed_in? %>
+      <p class="center">
+        <%= link_to "Pridať novú oblasť", "/locations/#{@location.id}/area/new", class: "btn btn-primary"%>
+      </p>
+      <br />
+    <% end %>
+    <%= link_to "<< Späť na zoznam lokalít", "/locations" %>
+
+  </div>
+</div>

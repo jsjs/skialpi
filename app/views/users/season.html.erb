@@ -1,0 +1,27 @@
+<%= render 'user_header' %>
+
+<%= will_paginate(@achievements) %>
+
+<%= @achievements.count %>
+<table class="table table-striped">
+  
+  <th> Zjazd </th> <th> Náročnosť </th> <th> Dátum </th> <th> Čas </th> <th> Komentár </th>
+  <% if !current_user.nil? && current_user.admin? %>
+    <th></th>
+  <% end %>
+  
+  <% @achievements.each do |achievement| %>
+    <tr>
+      <td> <%= link_to achievement.track.name, achievement.track %> </td>
+      <td> <%= achievement.track.difficulty %> | <%= achievement.track.exposure %></td>
+      <td> <%= achievement.date %> </td>
+      <td> <%= achievement.time %> </td>
+      <td> <%= achievement.note %> </td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate(@achievements) %>
+
+<%= render 'user_footer' %>

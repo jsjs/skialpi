@@ -1,0 +1,51 @@
+<% provide(:title, @area.name) %>
+
+<h1><%= @area.name %></h1>
+<p class="center">Lokalita: <%= link_to @area.location.name, @area.location %> </p>
+
+<div class="row">
+  <div class="span6 offset3">
+
+    <% unless @area.description.empty? %>
+    <p>
+      <h4>Popis</h4>
+      <%= @area.description %>
+      <%= link_to '[upraviť]', edit_area_path(@area) %>
+    </p>
+    <% end %>
+    
+
+    <% if signed_in? %>
+      <br/><br/>
+      <p class="center"><%= link_to "Vytvoriť nový zjazd", "/areas/#{params[:id]}/track/new", class: "btn btn-primary" %></p>
+    <% end %>
+    
+    <h4>Zjazdy</h4>  
+
+    <% if @tracks.length == 0 %>
+      <div class="alert alert-warning center" style="margin-top: 50px">
+        Pre danú oblasť nie sú evidované žiadne zjazdy.
+      </div>
+      <br/> <br/>
+    <% else %>
+    
+    <table class="table table-striped">
+ 
+    <% @tracks.each do |track| %>
+    <tr>
+      <td> <%= link_to "#{track.area.name} - #{track.name}", track %> </td>
+      <td> <%= track.altitude %> m</td>
+      <td> <%= track.difficulty %> </td>
+      <td> <%= track.exposure %> </td>
+    </tr>
+    <% end %>
+
+    </table>
+    <%= will_paginate(@tracks) %>
+
+    <% end %>
+    
+    <%= link_to "<< Späť na lokalitu #{@area.location.name}", @area.location %>
+
+  </div>
+</div>

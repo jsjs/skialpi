@@ -1,0 +1,29 @@
+<% provide(:title, 'Evidovanie oblasti') %>
+
+<h1>Evidovanie oblasti</h1>
+<h4 class="center"> <%= Location.find(params[:id]).name %></h4>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for @area, :url => { :action => "create" } do |f| %>
+    
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :name, "Názov *" %>
+      <%= f.text_field :name %>
+      
+
+      <%= f.label :description, "Popis" %>
+      <%= f.text_area :description, placeholder: "Tu zadajte popis lokality ...", size: "x3" %>      
+       
+        
+      Údaje označené hviezdičkou (*) sú povinné  <br /> <br />
+        
+      <%= f.submit "Pridaj", class: "btn btn-large btn-primary" %>
+      
+    <% end %>
+    
+
+  </div>
+</div>
+

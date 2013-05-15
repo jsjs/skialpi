@@ -1,0 +1,41 @@
+# encoding: utf-8
+
+<% provide(:title, "Chyby") %>
+
+<h1> Chyby </h1>
+
+Počet chýb evidovaných v systéme: <%= @bugs.count %>
+
+<% if @bugs.length == 0 %>
+   <div class="alert alert-warning center" style="margin-top: 50px">Neboli nahlásené žiadne nové chyby.</div>
+<% else %>
+
+<%= will_paginate(@bugs) %>
+
+<table class="table table-striped">
+    
+    <tr>
+      <th> Dátum </th>
+      <th> Ohlásil </th>
+      <th> Popis </th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @bugs.each do |bug| %>
+    <tr>
+       <td> <%= bug.created_at.to_date %> </td>
+       <td> <%= link_to bug.user.name, bug.user %> </td>
+       <td> <%= truncate(bug.description, length: 50, separator: ' ') %>
+       <td> <%= link_to "[zobraziť]", bug %>
+       <td> <%= link_to "[zmazať]", bug, method: :delete,
+                                  data: { confirm: "Ste si istí?" } %> </td>
+    </tr>
+    <% end %>
+
+</table>
+
+<%= will_paginate(@bugs) %>
+
+<% end %>
+
+
