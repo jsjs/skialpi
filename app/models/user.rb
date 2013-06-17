@@ -23,7 +23,7 @@
 class User < ActiveRecord::Base
   
   attr_accessible :email, :sex, :show_email, :password, :password_confirmation,
-                  :about, :name, :birthdate, :show_age
+                  :about, :name, :birthdate, :show_age, :helpers
   
   has_secure_password
   
