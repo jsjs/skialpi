@@ -97,7 +97,7 @@ namespace :db do
     time = "5:34"
     users.each do |user|
       15.times do
-        track = Track.find(rand(1..100).to_i)
+        track = Track.find(1 + rand(140))
         user.create_achievement(track, date, time, "")
       end
     end 
