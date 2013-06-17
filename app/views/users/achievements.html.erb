@@ -16,7 +16,7 @@
   
   <% @achievements.each do |achievement| %>
     <tr>
-      <td> <%= link_to achievement.track.name, achievement.track %> </td>
+      <td> <%= link_to achievement.track.area.name + ":" + achievement.track.name, achievement.track %> </td>
       <td> <%= achievement.track.difficulty %> | <%= achievement.track.exposure %></td>
       <td> <%= achievement.points %> </td>
       <td> <%= achievement.date %> </td>

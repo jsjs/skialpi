@@ -9,6 +9,7 @@ Skialpi::Application.routes.draw do
       get :season
       get :top10
       get :stats
+      get :turn_off_helpers
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
@@ -36,6 +37,8 @@ Skialpi::Application.routes.draw do
   
   match '/tracks/:id/change_area' => 'tracks#change_area'
   match '/tracks/:id/change_area_proc' => 'tracks#change_area_proc', via: 'put'
+  match '/tracks/:id/add_as_achievement' => 'tracks#add_as_achievement'
+  match '/tracks/:id/add_as_achievement_proc' => 'tracks#add_as_achievement_proc', via: 'post'
   
    match 'update_areas' => 'achievements#update_areas'
    match 'update_tracks' => 'achievements#update_tracks'

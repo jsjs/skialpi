@@ -1,18 +1,51 @@
 <%= render 'user_header' %>
 
-<strong>Body spolu: </strong> <%= @all_points %> <br />
-<strong>Body v sezóne <%= Date.current.year %>:</strong> <%= @season_points %> <br />
-<strong>Body v TOP10: </strong> <%= @top10_points %> <br /><br />
-
-<strong>Počet evidovaných zjazdov:</strong> <%= @tracks_count %><br />
-<strong>Počet zjazdov evidovaných v sezóne <%= Date.current.year %>:</strong> <%= @seasons_tracks_count %><br /><br />
-
-<% unless @last_achv.nil? %>
-  <strong>Naposledy pridaný zjazd: </strong><%= link_to @last_achv.track.name, @last_achv.track %> (<%=     @last_achv.created_at.to_date %>) <%= @last_achv.points %>b <br />
+<% if signed_in? and current_user?(@user) %>
+	<% if @tracks_count == 0 %>
+		<div class="alert alert-success center">
+			Ešte ste nezlyžovali žiadny zjazd. Zlyžujte svoj prvý zjazd a vstúpte ku hodnoteným používateľom.
+		</div>
+	<% else %>
+		<div class="alert alert-success center">
+			Gratulujeme, v rebríčku ste na <strong><%= @place %>. mieste</strong>.
+			<% if @place.to_i != 1 %>
+				Ak sa chcete posunúť na <%= @place.to_i - 1 %>. miesto, potrebujete získať ešte <strong><%= @pbm_points.to_i - @all_points%></strong> bodov.
+			<% end %>
+		</div>
+	<% end %>
 <% end %>
 
-<% unless @first_achv.nil? %>
-  <strong>Môj prvý pridaný zjazd: </strong><%= link_to @first_achv.track.name, @first_achv.track %> (<%= @first_achv.created_at.to_date %>) <%= @first_achv.points %>b
+<% if signed_in? and current_user.helpers %>
+    <div class="alert alert-info center">
+      Vitajte vo svojom <strong>denníčku</strong>. Môžete si v ňom prezerať všetky Vaše zjazdy, pomocou tlačidla vľavo pridávať nové zjazdy a sledovať, ako sa Vám pripočitávajú body za Vaše úspechy. Ak si neprajete zobrazovať tieto pomocné okná, jednoducho ich vypnite pomocou odkazu vľavo - Vypnúť pomocné hlásenia. Nebojte sa, ak si to rozmyslíte, tieto hlásenia môžete podobným spôsobom kedykoľvek opäť zapnúť.<br /><br />
+      Pre bližšiu pomoc kedykoľvek kliknite na <u><%= link_to "Pomocníka", "/help" %></u> v spodnej časti stránky.
+    </div>
+<% end %>
+
+<br />
+
+<div class="row">
+  <div class="span8">
+<table class="table" style="font-size: 16px">
+<tr>
+	<td>body spolu:</td><td><strong><%= @all_points %></strong></td>
+</tr>
+<tr>
+	<td>body v sezóne <%= Date.current.year %>:</td><td><%= @season_points %></td>
+</tr>
+<tr>
+	<td>body v TOP10:</td><td><%= @top10_points %></td>
+</tr>
+</table>
+</div>
+</div>
+
+<br /><br />
+Počet evidovaných zjazdov: <%= @tracks_count %><br />
+Počet zjazdov evidovaných v sezóne <%= Date.current.year %>: <%= @seasons_tracks_count %><br /><br />
+
+<% unless @last_achv.nil? %>
+  Naposledy pridaný zjazd: <%= link_to @last_achv.track.name, @last_achv.track %> (<%=     @last_achv.created_at.to_date %>) <%= @last_achv.points %>b <br />
 <% end %>
 
 <%= render 'user_footer' %>

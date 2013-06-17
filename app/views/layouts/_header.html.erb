@@ -8,15 +8,7 @@
           <li><%= link_to "Štatistiky", stats_path %></li>
           <li><%= link_to "Denníčky", users_path %></li>
 
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Zjazdy <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Zjazdy", "/tracks" %></li>
-                <li><%= link_to "Lokality", "/locations" %></li>
-              </ul>
-            </li>
+          <li><%= link_to "Lokality (zjazdy)", "/locations" %></li>
           
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">

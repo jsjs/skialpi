@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130504144737) do
+ActiveRecord::Schema.define(:version => 20130616160616) do
 
   create_table "achievements", :force => true do |t|
     t.date     "date"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20130504144737) do
   create_table "bug_reports", :force => true do |t|
     t.integer  "user_id"
     t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "errors", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.boolean  "solved"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -83,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20130504144737) do
     t.date     "birthdate"
     t.boolean  "show_age"
     t.boolean  "admin",           :default => false
+    t.boolean  "helpers",         :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -28,6 +28,10 @@
     
     </table>
     
+    <% if signed_in? %>
+      <p class="center"><%= link_to "Pridať zjazd do denníčka", "#{@track.id}/add_as_achievement", class: "btn btn-primary" %></p>
+    <% end %>
+
     <% if signed_in? and current_user.admin? %>
       <p class="center"><%= link_to "Odstrániť", @track, method: :delete,
                                     data: { confirm: "Odstránením zjazdu budú zmazané bodové ohodnotenia používateľov, ktorí majú zjazd evidovanú v denníčku. Chcete pokračovať?" } , class: "btn btn-warning" %></p>

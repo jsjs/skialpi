@@ -2,7 +2,7 @@
 
 <h1> Používatelia </h1>
 
-Počet zaregistrovaných používateľov: <%= @users.count %>
+<p class = center>V systéme už máme <strong><%= @users.count %></strong> zaregistrovaných používateľov. </p>
 
 <%= will_paginate %>
 
@@ -16,9 +16,7 @@ Počet zaregistrovaných používateľov: <%= @users.count %>
   <% @users.each do |user| %>
     <tr>
       <td> <%= link_to user.name, user %> </td>
-      <% sx = "m" %>
-      <% sx = "ž" if user.sex.eql? "f" %>
-      <td> <%= sx %> </td>
+      <td> <%= user.sex_sk %> </td>
       <td> <%= user.achievements.sum(:points) %> </td>
       <td> <%= user.season_achievements.sum(:points) %> </td>
       <% if !current_user.nil? && current_user.admin? && !current_user?(user) %>

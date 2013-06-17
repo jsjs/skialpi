@@ -3,14 +3,38 @@
 <h1> Pomocník </h1>
 
 <p class="justify">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac metus tortor, accumsan pellentesque orci. Aenean cursus libero nec erat blandit mollis. Fusce ullamcorper velit tempor mauris porta nec tempor neque auctor. Aenean condimentum placerat neque, sit amet lobortis dolor auctor non. Integer at massa non lectus convallis dapibus. Vivamus justo nibh, fringilla nec semper a, ultrices vitae nibh. Phasellus risus quam, faucibus vel sollicitudin id, interdum sit amet diam.
+Systém Skialpi slúži na evidenciu skialpinistických zjazdov. Tieto zjazdy môžete do systému pridávať prechodom na Lokality v hornom menu. Ak daná lokalita ešte neexituje, môžte ju do systému pridať. Lokalita sa skladá z viacerých oblastí v ktorých sú potom evidované konkrétne zjazdy. Hierarchia zjazdov je nasledovná:<br/>
+<strong>Lokalita</strong> - predstavuje nejaké skialpinisticky atraktívne pohorie, kopec alebo dolina. V rámci tohto pohoria je viacero oblastí.<br />
+<strong>Oblasť</strong> - oblasti sú súčasťami väčších lokalít. Oblasť predstavuje napríklad nejakú stenu pohoria, prípadne štít, u ktorého evidujeme zjazdy.<br />
+<strong>Zjazd</strong> - predstavuje konkrétny skialpinistický zjazd v nejakom pohorí. 
+<br /><br />
+Hlavným cieľom systému Skialpi je evidovať Vaše dosiahnuté úspechy v skialpinizme - teda zjazdy, ktoré ste úspešne zlyžovali. Pridávať zjazdy môžete vo svojom Denníčku, na ktorý sa dostanete kliknutím na položku Účet v hornom menu a následnom výbere položky Môj denníček.
+<br/><br/>
+Po pridaní zjazdu do Vášho denníčka Vám bude zjazd následne ohodnotený podľa náročnosti. Hodnotenie zjazdov je vykonané pomocou nasledovnej tabuľky:<br />
+</p>
 
-Sed sagittis lectus a est vehicula molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam ac elit id augue mollis blandit. Ut porta bibendum convallis. Donec faucibus purus ipsum, eu vestibulum mi. Donec enim erat, fringilla et malesuada nec, gravida sit amet lectus. Vestibulum enim dui, adipiscing sit amet dictum a, porta eu justo. Aliquam tristique gravida placerat. Nullam tempus elementum libero, in consequat arcu ornare non. Pellentesque luctus metus at diam luctus nec varius justo scelerisque. Pellentesque quis ullamcorper felis. Quisque ut dolor nisl, ut tempus ipsum. Quisque in metus vestibulum enim porttitor porta.
+<div class="row">
+	<div class="span6 offset1">
+<% dif = difficulty_level %>
+<table class="table table-striped">
+<tr><th>Obtiažnosť</th><th>Body</th></tr>
+<% dif.each do |key, value| %>
+	<tr><td><%= key %></td><td><%= value %></td></tr>
+<% end %>
+</table>
+</div>
+<div class = "span4">
+<% exp = exposure_level %>
+<table class="table table-striped">
+<tr><th>Expozícia</th><th>Body</th></tr>
+<% exp.each do |key, value| %>
+	<tr><td><%= key %></td><td><%= value %></td></tr>
+<% end %>
+</table>
+</div></div>
 
-Mauris nisl odio, sollicitudin pretium gravida id, elementum eu neque. Quisque scelerisque, velit sed consectetur cursus, ligula enim viverra tortor, id suscipit dolor ante vitae tellus. Nunc id lacus augue, id luctus odio. Ut porta nunc eget turpis bibendum blandit. Mauris vel purus id dolor molestie pharetra in nec nibh. Nulla et varius elit. Fusce ut pulvinar diam. Nullam feugiat, velit ac pharetra adipiscing, lacus elit pretium ipsum, quis convallis orci metus id felis. Nullam sed est eros.
-
-Vivamus tristique, lectus quis ultricies condimentum, lacus dui convallis diam, vitae fringilla dui arcu blandit leo. In nisi quam, dapibus eu feugiat sit amet, consequat in tellus. Pellentesque eu magna tellus. Maecenas dictum, est sed consequat eleifend, enim tortor molestie arcu, quis sodales turpis lectus id nulla. Duis sit amet pharetra ipsum. Vivamus a nibh sed tellus eleifend pharetra quis sed augue. Donec id tellus a erat mollis accumsan.
-
-Etiam convallis metus ac dui sollicitudin fermentum. Nam tincidunt risus ut sapien tincidunt lacinia. Pellentesque ut orci nisi. Donec dapibus, lectus non tempus ornare, metus massa gravida est, sit amet vestibulum velit tortor a nibh. Quisque diam nulla, scelerisque sed consectetur ut, condimentum sit amet leo. Etiam congue hendrerit ante. Pellentesque laoreet sapien id est luctus ac sollicitudin tortor sagittis. Praesent lorem erat, sagittis quis condimentum quis, accumsan at dui. Nam adipiscing lorem et ante ullamcorper congue. 
+<p class="justify">
+Viac o metodike hodnotenia môžete nájsť na stránke
+<%= link_to "http://www.miropeto.sk/sprievodca/vseobecne-informacie-o-sprievodcovi/", "http://www.miropeto.sk/sprievodca/vseobecne-informacie-o-sprievodcovi/" %>
 </p>
 

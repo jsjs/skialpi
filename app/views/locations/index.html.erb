@@ -2,12 +2,20 @@
 
 <h1> Lokality </h1>
 
+<% if signed_in? %>
+  <div class="alert alert-info">
+  Ak chcete <em> pridať nový zjazd </em>, vyberte si lokalitu, potom oblasť a pridajte nový zjazd. Ak sa lokalita nenachádza v zozname, <u><%= link_to "vytvorte ju tu", "/locations/new" %></u>
+  </div>
+<% end %>
+
+<% if signed_in? and current_user.helpers %>
+    <div class="alert alert-info center">
+      Ak sa chcete dozvedieť viac o nejakom zjazde, vyberte si lokalitu, v ktorom sa nachádza. Každá lokalita zoskupuje niekoľko skialpinistických oblastí. V týchto oblastiach sa potom nachádzajú už konkrétne zjazdy.
+    </div>
+<% end %>
+
 <%= will_paginate %>
 
-<% if signed_in? %>
-  Ak chcete <em> pridať nový zjazd </em>, vyberte si lokalitu, potom oblasť a pridajte nový zjazd. Ak sa lokalita nenachádza v zozname, <%= link_to "vytvorte ju tu", "/locations/new" %>
-  <br /><br />
-<% end %>
 
 <% if @locations.length == 0 %>
    <div class="alert alert-warning center" style="margin-top: 50px">V systéme nie sú evidované žiadne lokality.</div>

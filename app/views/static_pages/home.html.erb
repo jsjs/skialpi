@@ -7,25 +7,34 @@
 <p class="center">
 
 	<% unless signed_in? %>
-		<%= link_to "Zaregistrujte sa teraz!", "/registration", 
+		<br /><br/ >
+    <%= link_to "Zaregistrujte sa teraz!", "/registration", 
                                 class: "btn btn-large btn-primary" %>
+    <br /><br/ ><br /><br/ >
 	<% end %>
 
 </p>
 
-<% if @achievements.length > 0 %>
+<% if signed_in? and current_user.helpers %>
+    <div class="alert alert-info">
+      Prebojujte sa aj Vy medzi najúspešnejších. Pridávajte do svojho <u>
+      <%= link_to "denníčka", current_user %></u> nové zjazdy a posúvajte sa v rebríčku stále vyššie!.
+    </div>
+<% end %>
+
+<% if @achievements.num_tuples > 0 %>
 
   <div class="row">
     <div class="span6 offset3">
 
     <h4 class="center">Najlepší používatelia</h4>
     <table class="table table-striped">
-      <% @achievements.each_with_index do |achv, i| %>
+      <% @achievements.each do |achv| %>
         <tr>
-          <td> <%= (i + 1) %>. </td>
-          <td> <%= link_to achv.user.name, achv.user %> </td>
-          <td> <%= achv.user.sex_sk %> </td>
-          <td> <strong><%= achv["sum_points"] %></strong> </td>
+          <td> <%= achv["rank"] %>. </td>
+          <td> <%= link_to achv["name"], "/users/#{achv["id"]}" %> </td>
+          <td> <%= User.wt_sex achv["sex"] %> </td>
+          <td> <strong><%= achv["points"] %></strong> </td>
         </tr>
       <% end %>
     </table>
@@ -34,15 +43,15 @@
 
 <% end %>
 
-<% if @season.length > 0 %>
+<% if @season.num_tuples > 0 %>
     <h4 class="center">Najlepší používatelia v sezóne <%= Date.current.year %></h4>
     <table class="table table-striped">
-      <% @season.each_with_index do |seas, i| %>
+      <% @season.each do |seas| %>
         <tr>
-          <td> <%= (i + 1) %>. </td>
-          <td> <%= link_to seas.user.name, seas.user %> </td>
-          <td> <%= seas.user.sex_sk %> </td>
-          <td> <strong><%= seas["sum_points"] %></strong> </td>
+          <td> <%= seas["rank"] %>. </td>
+          <td> <%= link_to seas["name"], "/users/#{seas["id"]}" %> </td>
+          <td> <%= User.wt_sex seas["sex"] %> </td>
+          <td> <strong><%= seas["points"] %></strong> </td>
         </tr>
       <% end %>
     </table>
@@ -51,5 +60,6 @@
   </div>
 
 <% end %>
+
 
 

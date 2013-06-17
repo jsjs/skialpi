@@ -8,20 +8,25 @@
 <div class="row">
 <div class="span6 offset3">
 
+<% if signed_in? and current_user.helpers %>
+    <div class="alert alert-info">
+      Pozrite si štatistiky a zistite, koľkí ste v poradí medzi ostatnými používateľmi systému.
+    </div>
+<% end %>
 
 <h3 class="center">Najlepší používatelia</h3>
 
-<% if @achievements.length == 0 %>
+<% if @achievements.num_tuples == 0 %>
   <div class="alert alert-warning center" style="margin-top: 50px">V systéme nie je evidovaný zjazd pre žiadneho používateľa.</div>
 <% else %>
 
   <table class="table table-striped">
-    <% @achievements.each_with_index do |achv, i| %>
+    <% @achievements.each do |achv| %>
       <tr>
-        <td> <%= (i + 1) %>. </td>
-        <td> <%= link_to achv.user.name, achv.user %> </td>
-        <td> <%= achv.user.sex_sk %> </td>
-        <td> <strong><%= achv["sum_points"] %></strong> </td>
+        <td> <%= achv["rank"] %>. </td>
+        <td> <%= link_to achv["name"], "/users/#{achv["id"]}" %> </td>
+        <td> <%= User.wt_sex achv["sex"] %> </td>
+        <td> <strong><%= achv["points"] %></strong> </td>
       </tr>
     <% end %>
   </table>
@@ -35,17 +40,17 @@
 
 <h3 class="center">Najlepší používatelia v sezóne <%= Date.current.year %></h3>
 
-<% if @season.length == 0 %>
+<% if @season.num_tuples == 0 %>
   <div class="alert alert-warning center" style="margin-top: 50px">V systéme nie je evidovaný zjazd pre žiadneho používateľa v aktuálnej sezóne.</div>
 <% else %>
 
   <table class="table table-striped">
-    <% @season.each_with_index do |seas, i| %>
+    <% @season.each do |seas| %>
       <tr>
-        <td> <%= (i + 1) %>. </td>
-        <td> <%= link_to seas.user.name, seas.user %> </td>
-        <td> <%= seas.user.sex_sk %> </td>
-        <td> <strong><%= seas["sum_points"] %></strong> </td>
+        <td> <%= seas["rank"] %>. </td>
+        <td> <%= link_to seas["name"], "/users/#{seas["id"]}" %> </td>
+        <td> <%= User.wt_sex seas["sex"] %> </td>
+        <td> <strong><%= seas["points"] %></strong> </td>
       </tr>
     <% end %>
   </table>
@@ -55,3 +60,5 @@
 
 </div>
 </div>
+
+

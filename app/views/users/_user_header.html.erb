@@ -30,7 +30,15 @@
       
       <% if current_user?(@user) %>
         <br /><br />
-        <%= link_to "Pridať zjazd do denníčka", "/achievements/new", class: "btn btn-large" %>
+        <%= link_to "Pridať zjazd do denníčka", "/achievements/new", class: "btn btn-large btn-primary" %>
+        
+        <% if @user.helpers %>
+          <br /><br />
+          <%= link_to "Vypnúť pomocné hlásenia", turn_off_helpers_user_path %>
+        <% else %>
+          <br /><br />
+          <%= link_to "Zapnúť pomocné hlásenia", turn_off_helpers_user_path %>
+        <% end %>
       <% end %>
       
       <% if !current_user.nil? && current_user.admin? && !current_user?(@user) %>

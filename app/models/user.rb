@@ -57,15 +57,15 @@ class User < ActiveRecord::Base
   end
   
   def achievements_ordered
-    self.achievements.includes(:track).order("date DESC")
+    self.achievements.includes(:track => :area).order("date DESC")
   end
   
   def season_achievements
-    self.achievements.where("date_part('year', date) = date_part('year', current_date)").includes(:track).order("date DESC")
+    self.achievements.where("date_part('year', date) = date_part('year', current_date)").includes(:track => :area).order("date DESC")
   end
   
   def top10_achievements
-    self.achievements.select("*").where("date_part('year', date) = date_part('year', current_date)").order("points DESC").limit(10)
+    self.achievements.select("*").where("date_part('year', date) = date_part('year', current_date)").includes(:track => :area).order("points DESC").limit(10)
   end
   
   def top10_points
@@ -81,10 +81,45 @@ class User < ActiveRecord::Base
     end
     @sum
   end
+
+  def place
+    uid = ActiveRecord::Base.connection.quote(self.id)
+    @query = "select place from (
+              select u.id, rank() over (order by points desc) as place from (
+                select user_id, sum(points) as points from achievements group by user_id
+              ) t
+              join users u on u.id = t.user_id
+              ) u where u.id = #{uid}"
+
+    @result = ActiveRecord::Base.connection.execute(@query)
+    @place = @result.first["place"]
+
+  end
+
+  def place_before_me place
+    place = place.to_i - 1
+    return 0 if place == 0
+
+    place = ActiveRecord::Base.connection.quote(place)
+    @query = "select points from (
+              select u.id, points, rank() over (order by points desc) as place from (
+                select user_id, sum(points) as points from achievements group by user_id
+              ) t
+              join users u on u.id = t.user_id
+              ) u where place = #{place}"
+
+    @result = ActiveRecord::Base.connection.execute(@query)
+    @pbm_points = @result.first["points"]
+  end
   
   def sex_sk
     return "muž" if self.sex.eql?("m")
     return "žena" if self.sex.eql?("f")
+  end
+
+  def self.wt_sex sex
+    return "muž" if sex.eql?("m")
+    return "žena" if sex.eql?("f")
   end
 
   # google:

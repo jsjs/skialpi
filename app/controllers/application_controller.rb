@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include UsersHelper
   include TracksHelper
+  include StatsHelper
 
   # Force signout to prevent CSRF attacks
   def handle_unverified_request

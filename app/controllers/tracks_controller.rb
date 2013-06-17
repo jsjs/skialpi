@@ -61,4 +61,20 @@ class TracksController < ApplicationController
   end
 
 
+  def add_as_achievement
+    @track = Track.find(params[:id])
+    @achievement = Achievement.new
+  end
+
+  def add_as_achievement_proc
+    @track = Track.find(params[:id])
+
+    @achievement = Achievement.new(params[:achievement])
+    @user = current_user
+    
+    @user.create_achievement(@track, @achievement.date, @achievement.time, @achievement.note)
+    flash[:success] = "Zjazd bol pridaný do denníčka."
+    redirect_to @user
+  end
+
 end

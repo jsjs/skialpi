@@ -52,7 +52,15 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "Používateľ bol zmazaný."
     redirect_to users_url
-  end  
+  end 
+
+  def turn_off_helpers
+    @user = User.find(params[:id])
+    @user.toggle!(:helpers)
+    flash[:success] = "Všetky pomocné komentáre boli vypnuté."
+    sign_in @user
+    redirect_to @user
+  end
   
 
   
@@ -98,10 +106,15 @@ class UsersController < ApplicationController
     @seasons_tracks_count = @user.season_achievements.count
     @top10_points = @user.top10_points
     @last_achv = @user.achievements.last
-    @first_achv = @user.achievements.first
    
     @stats_class = "active"
     @subtitle = "Štatistiky"
+
+    unless @tracks_count == 0
+      @place = @user.place
+      @pbm_points = @user.place_before_me @place
+    end
+
   end
 
     

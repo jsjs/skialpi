@@ -10,7 +10,7 @@ common: &common
 
 development:
   <<: *common
-  database: skialpi-prod
+  database: skialpi-dev
 
 test:
   <<: *common
