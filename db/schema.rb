@@ -44,14 +44,6 @@ ActiveRecord::Schema.define(:version => 20130616160616) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "errors", :force => true do |t|
-    t.integer  "user_id"
-    t.text     "description"
-    t.boolean  "solved"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "locations", :force => true do |t|
     t.string   "name"
     t.datetime "created_at",  :null => false
@@ -91,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20130616160616) do
     t.date     "birthdate"
     t.boolean  "show_age"
     t.boolean  "admin",           :default => false
-    t.boolean  "helpers",         :default => false
+    t.boolean  "helpers",         :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
