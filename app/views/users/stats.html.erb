@@ -13,13 +13,13 @@
 			<% end %>
 		</div>
 	<% end %>
-<% end %>
 
-<% if signed_in? and current_user.helpers %>
-    <div class="alert alert-info center">
+	<% if current_user.helpers %>
+	<div class="alert alert-info center">
       Vitajte vo svojom <strong>denníčku</strong>. Môžete si v ňom prezerať všetky Vaše zjazdy, pomocou tlačidla vľavo pridávať nové zjazdy a sledovať, ako sa Vám pripočitávajú body za Vaše úspechy. Ak si neprajete zobrazovať tieto pomocné okná, jednoducho ich vypnite pomocou odkazu vľavo - Vypnúť pomocné hlásenia. Nebojte sa, ak si to rozmyslíte, tieto hlásenia môžete podobným spôsobom kedykoľvek opäť zapnúť.<br /><br />
       Pre bližšiu pomoc kedykoľvek kliknite na <u><%= link_to "Pomocníka", "/help" %></u> v spodnej časti stránky.
     </div>
+    <% end %>
 <% end %>
 
 <br />
